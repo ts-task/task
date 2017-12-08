@@ -1,0 +1,17 @@
+node_modules
+coverage
+.nyc_output
+.DS_Store
+*.log
+.vscode
+.idea
+compiled
+src
+tools
+dist/docs
+.awcache
+tslint.json
+rollup.config.ts
+.travis.yml
+.editorconfig
+.all-contributorsrc

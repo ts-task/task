@@ -1,7 +1,7 @@
 # Task
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
 
-A starter project that makes creating a TypeScript library extremely easy.
+A promise replacement (made with TypeScript) that is more suitable for functional programming
 
 
 ### Usage
@@ -12,7 +12,7 @@ npm install @acamica/task
 
 ## Credits
 
-Initialized with [@alexjoverm](https://twitter.com/alexjoverm)'s [TypeScript Library Starter](https://github.com/alexjoverm/typescript-library-starter)
+Initialized with [@alexjoverm](https://twitter.com/alexjoverm)'s [TypeScript Library Starter](https://github.com/alexjoverm/typescript-library-starter), and made with :heart: by
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
