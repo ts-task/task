@@ -1,0 +1,34 @@
+{
+  "projectName": "@acamica/task",
+  "projectOwner": "hrajchert",
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": true,
+  "contributors": [
+    {
+      "login": "hrajchert",
+      "name": "Hernan Rajchert",
+      "avatar_url": "https://avatars0.githubusercontent.com/u/2634059?v=4",
+      "profile": "https://github.com/hrajchert",
+      "contributions": [
+        "code",
+        "design",
+        "doc",
+        "example",
+        "test"
+      ]
+    },
+    {
+      "login": "dggluz",
+      "name": "Gonzalo Gluzman",
+      "avatar_url": "https://avatars1.githubusercontent.com/u/1573956?v=4",
+      "profile": "https://github.com/dggluz",
+      "contributions": [
+        "code",
+        "ideas"
+      ]
+    }
+  ]
+}
