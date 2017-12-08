@@ -1,6 +1,6 @@
 {
   "name": "@acamica/task",
-  "version": "0.0.0",
+  "version": "0.0.0-development",
   "description": "Promise replacement made with TypeScript more suitable for functional programming and error handling",
   "keywords": [
     "async",
@@ -17,7 +17,7 @@
   "author": "Hernan Rajchert <hrajchert@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "git@github.com:acamica/task.git"
+    "url": "https://github.com/acamica/task.git"
   },
   "license": "MIT",
   "engines": {
@@ -99,7 +99,7 @@
     "rollup-plugin-commonjs": "^8.0.2",
     "rollup-plugin-node-resolve": "^3.0.0",
     "rollup-plugin-sourcemaps": "^0.4.2",
-    "semantic-release": "^8.0.0",
+    "semantic-release": "^8.2.0",
     "ts-jest": "^21.0.0",
     "ts-node": "^3.0.6",
     "tslint": "^5.4.3",
