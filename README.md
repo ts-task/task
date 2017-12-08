@@ -1,5 +1,6 @@
 # Task
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#contributors)
+[![Build Status](https://travis-ci.org/acamica/task.svg?branch=master)](https://travis-ci.org/acamica/task)
 
 A promise replacement (made with TypeScript) that is more suitable for functional programming
 
