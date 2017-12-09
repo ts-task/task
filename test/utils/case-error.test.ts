@@ -1,6 +1,6 @@
-import { caseError } from '../src/case-error';
-import { Task, UncaughtError } from '../src/task';
-import { assertFork, jestAssertNever, jestAssertUntypedNeverCalled } from './jest-helper';
+import { Task, UncaughtError } from '../../src/task';
+import { caseError } from '../../src/utils/case-error';
+import { assertFork, jestAssertNever, jestAssertUntypedNeverCalled } from '../jest-helper';
 
 class DivisionByZeroError extends Error {
     private type = 'DivisionByZeroError';

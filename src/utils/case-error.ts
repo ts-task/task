@@ -1,4 +1,4 @@
-import { Task } from './task';
+import { Task } from '../task';
 
 export type Constructor<T> = { new(...args: any[]): T; };
 
