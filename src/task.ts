@@ -9,9 +9,26 @@ export class UncaughtError extends Error {
     }
 }
 
+/**
+ * Asynchronous Task, like a promise but lazy and typed on error
+ * @param T Type of the Task value on success
+ * @param E Type of the Task error on failure
+ */
 export class Task <T, E> {
 
-    constructor (private fn: (resolve: (value: T) => void, reject: (err: E) => void) => void) {
+    /**
+     * Creates a new task using a `resolver` function. Pretty much like a promise creation
+     *
+     * ```
+     * const task = new Task((resolve, reject) => {
+     *   setTimeout(_ => resolve('value'), 1000)
+     * })
+     * ```
+     *
+     * @param resolver Function to resolve or reject the task
+     *
+     */
+    constructor (private resolver: (resolve: (value: T) => void, reject: (err: E) => void) => void) {
 
     }
 
@@ -83,7 +100,7 @@ export class Task <T, E> {
 
     fork (errorFn: (error: E) => any, successFn: (value: T) => any): void {
         new Promise((resolve, reject) => {
-            this.fn(resolve, reject);
+            this.resolver(resolve, reject);
         }).then(
             (x: any) => successFn(x),
             errorFn
