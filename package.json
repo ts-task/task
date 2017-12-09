@@ -1,6 +1,6 @@
 {
   "name": "@acamica/task",
-  "version": "0.0.0-development",
+  "version": "0.1.1",
   "description": "Promise replacement made with TypeScript more suitable for functional programming and error handling",
   "keywords": [
     "async",
@@ -10,7 +10,7 @@
   ],
   "main": "dist/task.umd.js",
   "module": "dist/task.es2015.js",
-  "typings": "dist/types/task.d.ts",
+  "typings": "dist/types/index.d.ts",
   "files": [
     "dist"
   ],
