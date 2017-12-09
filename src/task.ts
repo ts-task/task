@@ -44,9 +44,9 @@ export class Task <T, E> {
         });
     }
 
-    static fromPromise<TResult> (promise: Promise<TResult>): Task<TResult, UncaughtError> {
+    static fromPromise<TResult> (promise: Promise<TResult>): Task<TResult, any> {
         return new Task((outerResolve, outerReject) => {
-            promise.then(outerResolve, err => outerReject(new UncaughtError(err)));
+            promise.then(outerResolve, err => outerReject(err));
         });
     }
 

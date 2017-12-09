@@ -130,7 +130,7 @@ describe('Task', () => {
 
             // WHEN: we fork, THEN: it should call the error function with the rejected value
             resolved.fork(
-                assertFork(cb, x => expect(x).toBeInstanceOf(UncaughtError)),
+                assertFork(cb, x => expect(x).toBe('buu')),
                 jestAssertNever(cb)
             );
         });
