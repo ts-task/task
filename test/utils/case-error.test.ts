@@ -39,7 +39,7 @@ const divideAndRejectPairs = (numerator: number, denominator: number) =>
 
 
 
-describe.only('caseError:', () => {
+describe('caseError:', () => {
     it('Should catch and resolve the cased error', (cb) => {
         // GIVEN: A task that fails with DivisionByZeroError
         const task = divideAndRejectPairs(2, 0);

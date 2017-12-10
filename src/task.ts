@@ -44,7 +44,7 @@ export class Task <T, E> {
         });
     }
 
-    static fromPromise<TResult> (promise: Promise<TResult>): Task<TResult, any> {
+    static fromPromise<TResult, EResult = any> (promise: Promise<TResult>): Task<TResult, EResult> {
         return new Task((outerResolve, outerReject) => {
             promise.then(outerResolve, err => outerReject(err));
         });

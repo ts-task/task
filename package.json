@@ -1,6 +1,6 @@
 {
   "name": "@acamica/task",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Promise replacement made with TypeScript more suitable for functional programming and error handling",
   "keywords": [
     "async",
