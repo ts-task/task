@@ -1,6 +1,6 @@
 {
   "name": "@acamica/task",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Promise replacement made with TypeScript more suitable for functional programming and error handling",
   "keywords": [
     "async",
@@ -104,7 +104,7 @@
     "ts-node": "^3.0.6",
     "tslint": "^5.4.3",
     "tslint-config-acamica": "2.0.0",
-    "typedoc": "^0.9.0",
+    "typedoc": "0.11.1",
     "typescript": "^2.3.4",
     "validate-commit-msg": "^2.12.2"
   }

@@ -59,25 +59,25 @@ export class Task <T, E> {
     static all <T1, T2, T3, T4, E1, E2, E3, E4> (tasks: [Task<T1, E1>, Task<T2, E2>, Task<T3, E3>, Task<T4, E4>]): Task<[T1, T2, T3, T4], E1 | E2 | E3 | E4>;
     static all <T1, T2, T3, E1, E2, E3> (tasks: [Task<T1, E1>, Task<T2, E2>, Task<T3, E3>]): Task<[T1, T2, T3], E1 | E2 | E3>;
     static all <T1, T2, E1, E2> (tasks: [Task<T1, E1>, Task<T2, E2>]): Task<[T1, T2], E1 | E2>;
-    static all <T1, E1> (tasks: [Task<T1, E1>]): Task<[T1], E1>;
-    static all <T, E> (tasks: Task<T, E>[]) {
+    static all <T, E> (tasks: Array<Task<T, E>>): Task<[T], E>;
+    static all (tasks: any): any {
         // Flag to track if any Task has resolved
         let rejected = false;
         // Array that we'll fill with the resolved values, in order
-        const resolvedValues: T[] = [];
+        const resolvedValues: any[] = [];
         // Counter of resolved Tasks (we can't use resolvedValues.length since we add elements through index)
         let resolvedQty = 0;
 
         return new Task((outerResolve, outerReject) => {
-            tasks.forEach((aTask, index) => {
+            tasks.forEach((aTask: any, index: number) => {
                 aTask
-                    .fork(err => {
+                    .fork((err: any) => {
                         // We do only reject if there was no previous rejection
                         if (!rejected) {
                             rejected = true;
                             outerReject(err);
                         }
-                    }, x => {
+                    }, (x: any) => {
                         // Shouldn't resolve if another Task has rejected
                         if (rejected) {
                             return;

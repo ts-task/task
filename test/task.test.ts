@@ -318,6 +318,23 @@ describe('Task', () => {
             );
         });
 
+        it('should mantain types when given an array of elements of the same type', cb => {
+            // GIVEN: a resolved Task
+            const task = Task.resolve(5);
+
+            const multipleTasks = [task, task, task, task, task, task, task, task, task, task, task];
+
+            // WHEN: we do a Task.all from the previous tasks
+            const tAll = Task.all(multipleTasks);
+
+
+            // THEN: the resulting Task is resolved with an array of the resolved value
+            tAll.fork(
+                jestAssertNever(cb),
+                assertFork(cb, x => expect(x).toEqual([5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5]))
+            );
+        });
+
         it('should work with a single rejected Task', cb => {
             // GIVEN: a rejected Task
             const task = Task.reject('Buu!');
