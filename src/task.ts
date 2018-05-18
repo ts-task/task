@@ -2,7 +2,7 @@ import { catchError, chain, IMapFn, IPipeFn, ITaskChainFn, map } from './operato
 
 
 export class UncaughtError extends Error {
-    type: 'UncaughtError';
+    type: 'UncaughtError' = 'UncaughtError';
 
     constructor (private error: any) {
         super('UncaughtError: ' + error.toString());
