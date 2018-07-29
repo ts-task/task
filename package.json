@@ -10,7 +10,7 @@
   ],
   "main": "dist/task.umd.js",
   "module": "dist/task.es2015.js",
-  "typings": "dist/lib/index.d.ts",
+  "typings": "dist/lib/src/index.d.ts",
   "files": [
     "dist"
   ],
@@ -107,7 +107,7 @@
     "tslint": "^5.4.3",
     "tslint-config-acamica": "2.0.0",
     "typedoc": "^0.11.1",
-    "typescript": "^2.3.4",
+    "typescript": "2.5.2",
     "validate-commit-msg": "^2.12.2"
   }
 }

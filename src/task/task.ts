@@ -1,13 +1,7 @@
-import { catchError, chain, IMapFn, IPipeFn, ITaskChainFn, map } from './operators/basic';
+import { catchError, chain, IMapFn, IPipeFn, ITaskChainFn, map } from '../operators/basic';
+import { UncaughtError } from './uncaught-error';
 
 
-export class UncaughtError extends Error {
-    type: 'UncaughtError' = 'UncaughtError';
-
-    constructor (private error: any) {
-        super('UncaughtError: ' + error.toString());
-    }
-}
 
 /**
  * Asynchronous Task, like a promise but lazy and typed on error

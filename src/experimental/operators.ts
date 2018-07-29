@@ -1,4 +1,5 @@
-import { Task, UncaughtError } from '../task';
+import { Task } from '../task/task';
+import { UncaughtError } from '../task/uncaught-error';
 
 export function toPromise <T> (task: Task<T, any>) {
     return new Promise<T>((resolve, reject) =>

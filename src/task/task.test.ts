@@ -1,6 +1,7 @@
-import { catchError, chain, map } from '../src/operators/basic';
-import { Task, UncaughtError } from '../src/task';
-import { assertFork, jestAssertNever, jestAssertUntypedNeverCalled } from './jest-helper';
+import { assertFork, jestAssertNever, jestAssertUntypedNeverCalled } from '../../test/jest-helper';
+import { catchError, chain, map } from '../operators/basic';
+import { Task } from './task';
+import { UncaughtError } from './uncaught-error';
 
 
 describe('Task', () => {

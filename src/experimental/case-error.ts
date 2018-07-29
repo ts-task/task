@@ -1,5 +1,5 @@
-import { Task } from '../task';
-// TODO: move to experimental
+import { Task } from '../task/task';
+
 export type Constructor<T> = { new(...args: any[]): T; };
 
 export type IErrorHandler<E, TResult, EResult> = (err: E) => Task<TResult, EResult>;

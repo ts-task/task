@@ -1,6 +1,7 @@
 import { Task, UncaughtError } from '../../src/task';
-import { caseError } from '../../src/utils/case-error';
-import { assertFork, jestAssertNever, jestAssertUntypedNeverCalled } from '../jest-helper';
+import { assertFork, jestAssertNever, jestAssertUntypedNeverCalled } from '../../test/jest-helper';
+import { caseError } from './case-error';
+
 
 class DivisionByZeroError extends Error {
     private type = 'DivisionByZeroError';
@@ -42,7 +43,7 @@ const divideAndRejectPairs = (numerator: number, denominator: number) =>
 describe('caseError:', () => {
     it('Should catch and resolve the cased error', (cb) => {
         // GIVEN: A task that fails with DivisionByZeroError
-        const task = divideAndRejectPairs(2, 0);
+        const task = divideTask(2, 0);
 
         // WHEN: We catch and solve the error
         const result = task
@@ -56,7 +57,7 @@ describe('caseError:', () => {
         // THEN: The resulting type doesn't have the catched error as a posibility
         //       and the task is resolved with the catched response
         result.fork(
-            jestAssertNever(cb),
+            jestAssertUntypedNeverCalled(cb),
             assertFork(cb, n => expect(n).toBe(-1000))
         );
     });

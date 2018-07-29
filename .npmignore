@@ -1,5 +1,7 @@
 node_modules
 coverage
+dist/lib/experimental
+dist/experimental
 .nyc_output
 .DS_Store
 *.log
@@ -15,3 +17,4 @@ rollup.config.ts
 .travis.yml
 .editorconfig
 .all-contributorsrc
+.test.*

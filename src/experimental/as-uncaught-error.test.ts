@@ -1,6 +1,6 @@
 import { Task, UncaughtError } from '../../src/task';
-import { asUncaughtError } from '../../src/utils/as-uncaught-error';
-import { assertFork, jestAssertNever, jestAssertUntypedNeverCalled } from '../jest-helper';
+import { assertFork, jestAssertNever, jestAssertUntypedNeverCalled } from '../../test/jest-helper';
+import { asUncaughtError } from './as-uncaught-error';
 
 describe('asUncaughtError', () => {
     it('Should catch any error', (cb) => {

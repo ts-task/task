@@ -1,7 +1,7 @@
 import { map } from '../../src/operators/basic';
-import { share } from '../../src/operators/experimental';
 import { Task, UncaughtError } from '../../src/task';
-import { assertFork, jestAssertNever, jestAssertUntypedNeverCalled } from '../jest-helper';
+import { assertFork, jestAssertNever, jestAssertUntypedNeverCalled } from '../../test/jest-helper';
+import { share } from './operators';
 
 
 describe('share', () => {
