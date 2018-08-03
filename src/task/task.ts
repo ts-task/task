@@ -119,15 +119,15 @@ export class Task <T, E> {
     }
 
     map<TResult> (fn: IMapFn<T, TResult>): Task<TResult, E | UncaughtError> {
-        return map<T, TResult, E>(fn)(this);
+        return map<T, TResult>(fn)(this);
     }
 
     chain<TResult, EResult> (fn: ITaskChainFn<T, TResult, EResult>): Task<TResult, E | EResult | UncaughtError> {
-        return chain<T, TResult, E, EResult>(fn)(this);
+        return chain<T, TResult, EResult>(fn)(this);
     }
 
     catch<TResult, EResult> (fn: ITaskChainFn<E, TResult, EResult>): Task<T | TResult, EResult | UncaughtError> {
-        return catchError<T, TResult, E, EResult>(fn)(this);
+        return catchError<TResult, E, EResult>(fn)(this);
     }
 
     fork (errorFn: (error: E) => any, successFn: (value: T) => any): void {

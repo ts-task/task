@@ -4,8 +4,8 @@ export type IMapFn <A, B> = (a: A) => B;
 export type ITaskChainFn<A, B, E> = (value: A) => Task<B, E>;
 export type IPipeFn<T1, T2, E1, E2> = (a: Task<T1, E1>) => Task<T2, E2>;
 
-export function map<T1, T2, E> (fn: IMapFn<T1, T2>) {
-    return function (input: Task<T1, E>): Task<T2, E | UncaughtError> {
+export function map<T1, T2> (fn: IMapFn<T1, T2>) {
+    return function <E>  (input: Task<T1, E>): Task<T2, E | UncaughtError> {
         return new Task((outerResolve, outerReject) => {
             input.fork(
                 outerReject,
@@ -22,8 +22,8 @@ export function map<T1, T2, E> (fn: IMapFn<T1, T2>) {
     };
 }
 
-export function chain<T1, T2, E1, E2> (fn: ITaskChainFn<T1, T2, E2>) {
-    return function (input: Task<T1, E1>): Task<T2, E1 | E2 | UncaughtError> {
+export function chain<T1, T2, E2> (fn: ITaskChainFn<T1, T2, E2>) {
+    return function <E1> (input: Task<T1, E1>): Task<T2, E1 | E2 | UncaughtError> {
         return new Task((outerResolve, outerReject) => {
             input.fork(
                 outerReject,
@@ -40,8 +40,8 @@ export function chain<T1, T2, E1, E2> (fn: ITaskChainFn<T1, T2, E2>) {
     };
 }
 
-export function catchError<T1, T2, E1, E2> (fn: ITaskChainFn<E1, T2, E2>) {
-    return function (input: Task<T1, E1>): Task<T1 | T2, E2 | UncaughtError> {
+export function catchError<T2, E1, E2> (fn: ITaskChainFn<E1, T2, E2>) {
+    return function <T1> (input: Task<T1, E1>): Task<T1 | T2, E2 | UncaughtError> {
         return new Task((outerResolve, outerReject) => {
             input.fork(
                 err => {

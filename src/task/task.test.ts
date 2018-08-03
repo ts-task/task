@@ -70,12 +70,31 @@ describe('Task', () => {
     });
 
     describe('map', () => {
-        it('Should handle transformation functions', (cb) => {
+        it('Should handle transformation functions (dot-chaining)', (cb) => {
             // GIVEN: a resolved value
             const task = Task.resolve(0);
 
             // WHEN: we transform the value
             const result = task.map(n => '' + n);
+
+            // THEN: the success function should be called with the transformed value
+            result.fork(
+                jestAssertNever(cb),
+                assertFork(cb, x => expect(x).toBe('0'))
+            );
+        });
+
+        it('Should handle transformation functions (pipe)', (cb) => {
+            // GIVEN: a resolved value
+            const task = Task.resolve(0);
+
+            // WHEN: we transform the value
+            const result = task.pipe(
+                map(n => '' + n),
+            )
+            .catch(err => Task.reject(err as UncaughtError)) // TODO: improve validation
+            .map(x => x as string) // Validate types
+            ;
 
             // THEN: the success function should be called with the transformed value
             result.fork(
