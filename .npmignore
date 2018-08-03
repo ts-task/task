@@ -1,7 +1,6 @@
 node_modules
 coverage
-dist/lib/experimental
-dist/experimental
+dist/lib/src/experimental
 .nyc_output
 .DS_Store
 *.log
