@@ -25,9 +25,8 @@
   },
   "scripts": {
     "lint": "tslint -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
-    "prebuild": "rimraf dist",
-    "build": "tsc --module commonjs && rollup -c rollup.config.ts && typedoc --out dist/docs --target es6 --theme minimal src",
-    "start": "tsc -w & rollup -c rollup.config.ts -w",
+    "build": "tsls build --libraryName=index && typedoc --out dist/docs --target es6 --theme minimal src",
+    "start": "tsc -w & rollup -c node_modules/tsls/default-config/rollup.config.ts -w",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:prod": "npm run lint && npm run test -- --coverage --no-cache",
@@ -108,6 +107,8 @@
     "tslint-config-acamica": "2.0.0",
     "typedoc": "^0.11.1",
     "typescript": "2.5.2",
-    "validate-commit-msg": "^2.12.2"
+    "validate-commit-msg": "^2.12.2",
+    "tsls": "0.0.1"
+
   }
 }
