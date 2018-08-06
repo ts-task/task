@@ -1,6 +1,11 @@
 # Task
 [![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#credits)
 [![Build Status](https://travis-ci.org/acamica/task.svg?branch=master)](https://travis-ci.org/acamica/task)
+[![Npm Version](https://badgen.net/npm/v/@acamica/task)](https://www.npmjs.com/package/@acamica/task)
+[![Npm Dependents](https://badgen.net/npm/dependents/@acamica/task)](https://www.npmjs.com/package/@acamica/task)
+
+
+
 
 Like a Promise with better error handling and some other upgrades.
 
