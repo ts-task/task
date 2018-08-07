@@ -1,6 +1,6 @@
 {
   "name": "@acamica/task",
-  "version": "0.4.0-rc-1",
+  "version": "0.4.0-rc-2",
   "description": "Promise replacement made with TypeScript more suitable for functional programming and error handling",
   "keywords": [
     "async",
@@ -94,12 +94,6 @@
     "prompt": "^1.0.0",
     "replace-in-file": "^3.0.0-beta.2",
     "rimraf": "^2.6.1",
-    "rollup": "^0.52.0",
-    "rollup-plugin-commonjs": "^8.0.2",
-    "rollup-plugin-json": "^3.0.0",
-    "rollup-plugin-node-resolve": "^3.0.0",
-    "rollup-plugin-sourcemaps": "^0.4.2",
-    "rollup-plugin-typescript2": "^0.16.1",
     "semantic-release": "^8.2.0",
     "ts-jest": "^21.0.0",
     "ts-node": "^3.0.6",
@@ -108,7 +102,6 @@
     "typedoc": "^0.11.1",
     "typescript": "2.5.2",
     "validate-commit-msg": "^2.12.2",
-    "tsls": "0.0.1"
-
+    "tsls": "0.0.2"
   }
 }
