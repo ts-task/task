@@ -26,12 +26,14 @@ export class Task <T, E> {
 
     }
 
-    static resolve<T> (value: T): Task<T, never> {
+    static resolve<T, E = never> (value: T): Task<T, E> {
         return new Task(resolve => {
             resolve(value);
         });
     }
 
+    // TODO: I would like to type as <T = never, E = any>
+    // but typescript infers wrongly
     static reject<E, T = never> (error: E): Task<T, E> {
         return new Task((resolve, reject) => {
             reject(error);
