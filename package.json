@@ -1,6 +1,6 @@
 {
-  "name": "@acamica/task",
-  "version": "0.4.0-rc-2",
+  "name": "@ts-task/task",
+  "version": "0.4.1",
   "description": "Promise replacement made with TypeScript more suitable for functional programming and error handling",
   "keywords": [
     "async",
@@ -17,7 +17,7 @@
   "author": "Hernan Rajchert <hrajchert@gmail.com>",
   "repository": {
     "type": "git",
-    "url": "https://github.com/acamica/task.git"
+    "url": "https://github.com/ts-task/task.git"
   },
   "license": "MIT",
   "engines": {
@@ -104,7 +104,7 @@
     "tslint-config-acamica": "2.0.0",
     "tsls": "0.0.2",
     "typedoc": "^0.11.1",
-    "typescript": "2.5.2",
+    "typescript": "3.0.1",
     "validate-commit-msg": "^2.12.2"
   }
 }

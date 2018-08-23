@@ -1,4 +1,4 @@
-import { Task } from '@acamica/task';
+import { Task } from '@ts-task/task';
 
 // Given three basic tasks
 const t1 = Task.resolve(9);                     // $ExpectType Task<number, never>

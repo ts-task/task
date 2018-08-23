@@ -1,4 +1,4 @@
-import { Task } from '@acamica/task';
+import { Task } from '@ts-task/task';
 
 // By default fromPromise can infer the value T from the promise, and the error
 // is anything (that's why we are using this library, to have typed errors)

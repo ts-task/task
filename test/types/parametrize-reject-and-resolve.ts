@@ -1,4 +1,4 @@
-import { Task } from '@acamica/task';
+import { Task } from '@ts-task/task';
 
 // Resolve and reject can infere one of the generics from the passed
 // argument, but the other one is defaulted to never and if necesary

@@ -1,4 +1,4 @@
-import { Task, operators } from '@acamica/task';
+import { Task, operators } from '@ts-task/task';
 
 const { map, chain } = operators;
 

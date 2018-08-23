@@ -1,11 +1,4 @@
 # Task
-[![All Contributors](https://img.shields.io/badge/all_contributors-2-orange.svg?style=flat-square)](#credits)
-[![Build Status](https://travis-ci.org/acamica/task.svg?branch=master)](https://travis-ci.org/acamica/task)
-[![Npm Version](https://badgen.net/npm/v/@acamica/task)](https://www.npmjs.com/package/@acamica/task)
-[![Npm Dependents](https://badgen.net/npm/dependents/@acamica/task)](https://www.npmjs.com/package/@acamica/task)
-
-
-
 
 Like a Promise with better error handling and some other upgrades.
 
@@ -14,7 +7,7 @@ Like a Promise with better error handling and some other upgrades.
 ### Usage
 **Install** the library in your project.
 ```bash
-npm install @acamica/task
+npm install @ts-task/task
 ```
 
 **Use** it in your code preeeeety much how you would use a Promise.
@@ -59,7 +52,6 @@ The differences between Task and Promise (or why should you choose task) are:
 * Task are [`pipe`able](#pipe-operator) so they are easier to extend
 * Task has [better semantics](#better-semantics)
 * Task are Lazy, so it's easier to create retry logic
-* Soon they will be cancellable ([before version 1.0.0](https://github.com/acamica/task/milestone/1))
 
 ### Errors as first citizen
 If you ever used Promises in TypeScript you may have noticed that it's only typed on success a.k.a `Promise<T>`. For example in the following code
@@ -266,11 +258,11 @@ This should give you an intuition that whenever you see a `map` you are not addi
 
 ## Credits
 
-Initialized with [@alexjoverm](https://twitter.com/alexjoverm)'s [TypeScript Library Starter](https://github.com/alexjoverm/typescript-library-starter), and made with :heart: by
+Initialized with [@alexjoverm](https://twitter.com/alexjoverm)'s [TypeScript Library Starter](https://github.com/alexjoverm/typescript-library-starter) under the Acamica Labs initiative and made with :heart: by
 
 <!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
 <!-- prettier-ignore -->
-| [<img src="https://avatars0.githubusercontent.com/u/2634059?v=4" width="100px;"/><br /><sub><b>Hernan Rajchert</b></sub>](https://github.com/hrajchert)<br />[💻](https://github.com/hrajchert/@acamica/task/commits?author=hrajchert "Code") [🎨](#design-hrajchert "Design") [📖](https://github.com/hrajchert/@acamica/task/commits?author=hrajchert "Documentation") [💡](#example-hrajchert "Examples") [⚠️](https://github.com/hrajchert/@acamica/task/commits?author=hrajchert "Tests") | [<img src="https://avatars1.githubusercontent.com/u/1573956?v=4" width="100px;"/><br /><sub><b>Gonzalo Gluzman</b></sub>](https://github.com/dggluz)<br />[💻](https://github.com/hrajchert/@acamica/task/commits?author=dggluz "Code") [🤔](#ideas-dggluz "Ideas, Planning, & Feedback") [⚠️](https://github.com/hrajchert/@acamica/task/commits?author=dggluz "Tests") |
+| [<img src="https://avatars0.githubusercontent.com/u/2634059?v=4" width="100px;"/><br /><sub><b>Hernan Rajchert</b></sub>](https://github.com/hrajchert)<br />[💻](https://github.com/hrajchert/@ts-task/task/commits?author=hrajchert "Code") [🎨](#design-hrajchert "Design") [📖](https://github.com/hrajchert/@ts-task/task/commits?author=hrajchert "Documentation") [💡](#example-hrajchert "Examples") [⚠️](https://github.com/hrajchert/@ts-task/task/commits?author=hrajchert "Tests") | [<img src="https://avatars1.githubusercontent.com/u/1573956?v=4" width="100px;"/><br /><sub><b>Gonzalo Gluzman</b></sub>](https://github.com/dggluz)<br />[💻](https://github.com/hrajchert/@ts-task/task/commits?author=dggluz "Code") [🤔](#ideas-dggluz "Ideas, Planning, & Feedback") [⚠️](https://github.com/hrajchert/@ts-task/task/commits?author=dggluz "Tests") |
 | :---: | :---: |
 <!-- ALL-CONTRIBUTORS-LIST:END -->
 

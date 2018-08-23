@@ -7,7 +7,7 @@
           "node_modules/@types"
         ],
         "baseUrl": ".",
-        "paths": { "@acamica/task": ["./src"] }
+        "paths": { "@ts-task/task": ["./src"] }
     },
     "include": [
         "src",

@@ -1,4 +1,4 @@
-import { Task } from '@acamica/task';
+import { Task } from '@ts-task/task';
 // Task is parameterized in success (T) and error (E)
 // Task<T, E>
 
