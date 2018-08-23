@@ -1,0 +1,16 @@
+{
+    "extends": "dtslint/dtslint.json",
+    "rules": {
+      "no-useless-files": false,
+      "file-name-casing": false,
+      "max-line-length": false,
+      "strict-export-declare-modifiers": false,
+      /* I dont agree with the errors being reported.
+      I think the main reason is because its intended to .d.ts
+      */
+      "no-unnecessary-generics": false,
+      /* I find this rule annoying, so I'm disabeling it ;) */
+      "eofline": false,
+      "only-arrow-functions": false
+    }
+  }

@@ -5,9 +5,12 @@
         "outDir": "dist/lib",
         "typeRoots": [
           "node_modules/@types"
-        ]
+        ],
+        "baseUrl": ".",
+        "paths": { "@acamica/task": ["./src"] }
     },
     "include": [
-        "src"
+        "src",
+        "test"
     ]
 }

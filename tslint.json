@@ -1,6 +1,7 @@
 {
   "rules": {
-    "interface-name": false
+    "interface-name": false,
+    "only-arrow-functions": false
   },
   "extends": [
     "tslint-config-acamica"

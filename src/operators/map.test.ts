@@ -26,10 +26,7 @@ describe('Task', () => {
             // WHEN: we transform the value
             const result = task.pipe(
                 map(n => '' + n),
-            )
-            .catch(err => Task.reject(err as UncaughtError)) // TODO: improve type validation
-            .map(x => x as string) // Validate types
-            ;
+            );
 
             // THEN: the success function should be called with the transformed value
             result.fork(
