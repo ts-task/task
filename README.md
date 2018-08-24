@@ -12,30 +12,26 @@ npm install @ts-task/task
 
 **Use** it in your code preeeeety much how you would use a Promise.
 
-```javascript
-// Create it with a resolver that may resolve in the future
+```typescript
+import { Task } from '@ts-task/task';
+
+// Create it with a resolver
 const task1 = new Task((resolve, reject) => {
     setTimeout(
-        _ => resolve('Hello in 2s'),
+        _ => resolve('Hello'),
         2000
     )
 })
 
-// Or you can create it with a constructor
-const task2 = Task.resolve(1);
+// Or with a constructor
+const task2 = Task.resolve('world');
 
-// Or even from a promise
-const task3 = Task.fromPromise(fetch('http://my-api'))
-
-// Once you have the task manipulate it at will
-task1
-    // Transform the eventual value (like Promise.then or Array.map)
-    .map(msg => `${msg}!!!`)
-    // Make a new async computation after we get the first value (like Promise.then or Array.flatMap)
-    .chain(msg => Task.fromPromise(fetch(msg)))
-    // Do something with the value once you have it
+Task.all([task1, task2])
+    // Transform the eventual value
+    .map(([msg1, msg2]) => `${msg1} ${msg2}!!!`)
+    // And then do something with it
     .fork(
-        err => console.error('Buu', err), // Errors are first class Yeay!
+        err => console.error('Buu', err), // Errors come first!
         msg => console.log('Yeay', msg)
     );
 ```
@@ -48,60 +44,82 @@ Good question, I'm happy you asked. Both promises and tasks are great if you are
 
 The differences between Task and Promise (or why should you choose task) are:
 
-* Task have [errors as first citizen](#errors-as-first-citizen)
-* Task are [`pipe`able](#pipe-operator) so they are easier to extend
-* Task has [better semantics](#better-semantics)
+* Task have [better error handling](#better-error-handling), so you'll have less bugs
+* Task are [`pipe`able](#pipe-operator), so they are easier to extend
+* Task has more [specific semantics](#specific-semantics), so it will be easier to know what you are doing
 * Task are Lazy, so it's easier to create retry logic
 
-### Errors as first citizen
+### Better Error Handling
 If you ever used Promises in TypeScript you may have noticed that it's only typed on success a.k.a `Promise<T>`. For example in the following code
 
-```javascript
-let somePromise: Promise<boolean>;
+```typescript
+const somePromise: Promise<string>;
 
-somePromise.then(
-    value => /* value is of type boolean */,
+somePromise
+  // Transform the eventual value
+  .then(x => `${x}!!!`)
+  // And then do something with it
+  .then(
+    value => /* value is of type string */,
     err   => /* err is of type any */
 )
 ```
 
-We know `value` is of the expected type `T` but we don't know anything about `err`, so it's type is `any`. The main problem that doesn't allow us to have a proper `Promise<T, E>` is that a function inside the `then` method can throw anything, and in TypeScript the exceptions are not typed, so we don't have a way to specify `E` and we cannot forbid the function from throwing, hence `any`.
+We know `value` is of the expected type `T` but we don't know **any**thing about `err`. The main reason is that when we transform our promises, the callbacks we pass to `then` can throw **any**thing, and in TypeScript the exceptions are not typed. We could manually define the error type and say it's a `Promise<string, Error>` but it would be a lie because we can't avoid exceptions and if they happen we can't know their types, and because `any & Error = any` we can't be more specific.
 
-With Task, we cannot forbid a function from throwing but we can wrap the error inside an `UncaughtError` object, and with that decision alone we can proper infer and manipulate errors 🎉.
+Thats a boomer because we make all this trouble with static typings to have more confidence on how we program and we are left wide open when things go south.
 
-So for example
 
-```javascript
+So we can't forbid a function from throwing but we can wrap exceptions inside an `UncaughtError` object, and with that decision alone we can type `Task<T, E>` and let TypeScript help us infer and manipulate errors 🎉.
+
+For example
+
+```typescript
 const task1 = Task.resolve(1);
 // task1 is of type Task<number, never>, which makes sense as there is no way resolve can fail
 
 const task2 = task1.map(n => '' + n)
-// task2 is of type Task<string, UncaughtError>, because we have to expect that the inner
-// function may throw
-
-// assuming we have
-// function getUser(id: string): Task<User, DbError | UserNotFound>
-
-const task3 = task2.chain(getUser)
-// task3 is of type Task<User, DbError | UserNotFound | UncaughtError>.
-// Here the UncaughtError is here because it was from the task before and also
-// because we don't know if the chain function throws.
+// task2 is of type Task<string, UncaughtError>, because we have converted the success value
+// and we don't know if the inner function throws an error or not
 ```
 
-And having the error typed is great for defensive programming 🛡 because it allows you to gain confidence on how you are
-handling your errors. You can also add, remove and transform your error logic. For example if you use the experimental
-`caseError` operator you could do something like this
+You can also add, remove and transform your error logic and the type inference will get you a long way.
 
-```javascript
-const task4 = task3.catch(caseError(UserNotFound, err => Task.resolve(null)))
-// task4 will have type Task<User | null, DbError | UncaughtError> because caseError only handles
-// the UserNotFound error (removing it from the errors) and resolves it to a new type of answer (null)
+For example is you use the `caseError` function from [@ts-task/utils](https://github.com/ts-task/utils) you could do something like this
+
+```typescript
+// Assuming we have defined a getUser function somewhere
+declare function getUser(id: number): Task<User, DbError | UserNotFound>;
+
+const user = getUser(100)
+  .catch(
+    caseError(
+      // If the error meets this condition
+      isInstanceOf(UserNotFound),
+      // Handle it with this callback
+      err => Task.resolve(new Guest())
+    )
+  )
+// user will have type Task<User | Guest, DbError | UncaughtError> because caseError only handles
+// the UserNotFound error (removing it from the errors) and resolves it to a new type of answer (Guest)
+// and theres always the possibility one of those functions throws, so we have to take UncaughtError
+// in account
 ```
 
-This will allow you to do things like only retry an http request if the error was 502, or 504 which may happen on a timely basis but don't retry if the error was 401 or a rate limit error which shouldn't be retried as the expected result is the same
+Another use case could be to only retry an http request if the error was 502, or 504 which may happen on a timely basis but don't retry if the error was 401 or a rate limit as the expected result is the same.
 
+Another feature of Task that will help you with error handling is that when you fork the error callback comes first. So whenever you want to use the eventual value, you first need to decide what you do with the error. You can always ignore it or `console.log` it, but you need to make a conscious decision.
 
-In conclusion, like somebody once said (it was me)
+```typescript
+Task
+  .resolve('Hello!')
+  .fork(
+      err => console.error('Buu', err), // Errors come first!
+      msg => console.log('Yeay', msg)
+  );
+```
+
+This is great for defensive programming 🛡 as all possible paths will need to be defined.
 
 > If you only type on success you're missing half the fun
 
@@ -135,7 +153,7 @@ which is not that bad. All that is required is that the functions passed pipe to
 
 We have a list of experimental operators in `src/operators/experimental.ts`. Use them with discresion as they might change without notice. All other operators will follow the semantic release convension.
 
-### Better semantics
+### Specific semantics
 
 Promises API is quite simple by design, it has a `then` method that can be used for 3 different purposes, in contrast *Task* has a different method for each usage.
 
