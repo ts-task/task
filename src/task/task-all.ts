@@ -12,7 +12,8 @@ declare module './task' {
         function all <T1, T2, T3, T4, E1, E2, E3, E4> (tasks: [Task<T1, E1>, Task<T2, E2>, Task<T3, E3>, Task<T4, E4>]): Task<[T1, T2, T3, T4], E1 | E2 | E3 | E4>;
         function all <T1, T2, T3, E1, E2, E3> (tasks: [Task<T1, E1>, Task<T2, E2>, Task<T3, E3>]): Task<[T1, T2, T3], E1 | E2 | E3>;
         function all <T1, T2, E1, E2> (tasks: [Task<T1, E1>, Task<T2, E2>]): Task<[T1, T2], E1 | E2>;
-        function all <T, E> (tasks: Array<Task<T, E>>): Task<[T], E>;
+        function all <T1, E1> (tasks: [Task<T1, E1>]): Task<[T1], E1>;
+        function all <T, E> (tasks: Array<Task<T, E>>): Task<T[], E>;
     }
 }
 
