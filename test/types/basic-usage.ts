@@ -58,8 +58,7 @@ const t3 = Task
         ? Task.resolve(-1)
         : Task.reject(err)
 );
-t3; // $ExpectType Task<number, Error | UncaughtError>
-
+t3; // $ExpectType Task<number, UncaughtError | Error>
 
 // Task forces you to check for errors, so when you fork the
 // first callback is the error and the second callback is the success.
