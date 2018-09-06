@@ -1,6 +1,6 @@
 # Task
 
-Like a Promise with better error handling and some other upgrades.
+It's Like a Promise with typed errors and other improvements that leads to more robust code.
 
 > made (and best used) with [TypeScript](http://www.typescriptlang.org/) ♥️
 
@@ -40,9 +40,7 @@ Task.all([task1, task2])
 
 Promises are great! so why do we need a replacement? or when should I use `Task`?
 
-Good question, I'm happy you asked. Both promises and tasks are great if you are working with *single asynchronous values*, meaning **one** *value or event* that maybe ocurring now or in some future. For example getting results from a database query, or making an AJAX request to a server. If you need *multiple asynchronous values* you should check out [RxJs](https://github.com/ReactiveX/RxJS).
-
-The differences between Task and Promise (or why should you choose task) are:
+Good question, I'm happy you asked:
 
 * Task have [better error handling](#better-error-handling), so you'll have less bugs
 * Task are [`pipe`able](#pipe-operator), so they are easier to extend
@@ -85,9 +83,12 @@ const task2 = task1.map(n => '' + n)
 
 You can also add, remove and transform your error logic and the type inference will get you a long way.
 
-For example is you use the `caseError` function from [@ts-task/utils](https://github.com/ts-task/utils) you could do something like this
+For example if you use the `caseError` function from [@ts-task/utils](https://github.com/ts-task/utils) you could do something like this
 
 ```typescript
+import { Task } from 'ts-task/task';
+import { caseError, isInstanceOf } from 'ts-task/utils';
+
 // Assuming we have defined a getUser function somewhere
 declare function getUser(id: number): Task<User, DbError | UserNotFound>;
 
@@ -101,14 +102,14 @@ const user = getUser(100)
     )
   )
 // user will have type Task<User | Guest, DbError | UnknownError> because caseError only handles
-// the UserNotFound error (removing it from the errors) and resolves it to a new type of answer (Guest)
-// and theres always the possibility one of those functions throws, so we have to take UnknownError
-// in account
+// UserNotFound (removing it from the errors) and resolves it to a new type of answer (Guest)
+// and there is always the possibility that one of those functions throws, so we have to take UnknownError
+// into account
 ```
 
 Another use case could be to only retry an http request if the error was 502, or 504 which may happen on a timely basis but don't retry if the error was 401 or a rate limit as the expected result is the same.
 
-Another feature of Task that will help you with error handling is that when you fork the error callback comes first. So whenever you want to use the eventual value, you first need to decide what you do with the error. You can always ignore it or `console.log` it, but you need to make a conscious decision.
+When you fork a Task, the error callback comes first, so whenever you want to use the eventual value, you first need to decide what you do with the error. You can always ignore it or `console.log` it, but you need to make a conscious decision.
 
 ```typescript
 Task
@@ -119,9 +120,6 @@ Task
   );
 ```
 
-This is great for defensive programming 🛡 as all possible paths will need to be defined.
-
-> If you only type on success you're missing half the fun
 
 ### Pipe operator
 When the [pipe operator](https://github.com/tc39/proposal-pipeline-operator) lands to JavaScript (currently in stage 1) we will be able to write code like this
@@ -135,9 +133,9 @@ const task = Task.resolve(1)
 ```
 
 which has the advantage of using custom methods without having to modify the prototype of `Task`. But because we cannot
-wait until the operator makes it to the standard we added a `pipe` method to Task, inspired by [RxJs pipeable operators](https://github.com/ReactiveX/rxjs/blob/master/doc/pipeable-operators.md).
+wait until the operator makes it to the standard we added a `pipe` method inspired by [RxJs pipeable operators](https://github.com/ReactiveX/rxjs/blob/master/doc/pipeable-operators.md).
 
-So the previous code would look like
+So the previous code would look like:
 
 ```javascript
 const task = Task.resolve(1).pipe(
@@ -148,8 +146,8 @@ const task = Task.resolve(1).pipe(
 )
 ```
 
-which is not that bad. All that is required is that the functions passed pipe to have the following signature
-`Task<T1, E1> => Task<T2, E2>`
+which is not that different. All that's required is that the functions passed pipe to have the signature
+`Task<T1, E1> => Task<T2, E2>`. You can find a common operators in the [@ts-task/utils](https://github.com/ts-task/utils) library, but we encourage you to write your own.
 
 ### Specific semantics
 
@@ -165,12 +163,12 @@ As stated in *Lord of the Promises*
 
 The nice thing about having one method should be simplicity (less methods to remember), but trying to put the different use cases in the same method can cause some confusions that we'll explain in this section.
 
-For example, when we want to **do** something with an eventual value, we need to know if the Promise *succeeds* or *fails*. Thats why the `then` method accepts two arguments, the *onSuccess* and *onError* callbacks (in that order).
+When we want to **do** something with an eventual value, we need to know if the Promise *succeeds* or *fails*. Thats why `then` accepts two arguments, the *onSuccess* and *onError* callbacks (in that order).
 
 If it's used in the middle of a Promise chain, it can cause some confusion
 
 ```javascript
-// Don't do this
+// It's not recommended to do this
 somePromise
   .then(x => foo(x))
   .then(
@@ -193,7 +191,7 @@ somePromise
 
 But just the fact that you can write the previous code can be misleading.
 
-The second argument of a `then` method should only be used in the last step of a Promise chain, when we are **do**ing something with the result.
+The second argument of `then` should only be used in the last step of a Promise chain, when we are **do**ing something with the result.
 
 ```javascript
 somePromise
@@ -205,7 +203,7 @@ somePromise
   );
 ```
 
-But because the second parameter is optional, it's fairly easy to end up with an unexpected result. For example in the following code
+But because the second parameter is optional, it's fairly easy to end up with fragile code. For example:
 
 ```javascript
 somePromise
@@ -216,7 +214,7 @@ somePromise
   );
 ```
 
-if `somePromise` fails there is no handler, so depending on the environment you could get a silent error or an `Uncaught Promise Rejection` that may be difficult to trace.
+if `somePromise` fails there is no handler, depending on the environment you could get a silent error or an `Uncaught Promise Rejection` that may be difficult to trace.
 
 When using task, if you want to **do** something with your eventual result you have to use `fork` as the last step. That method is the only one that doesn't return a new *task*, so it's impossible to use it in the middle of the chain. Even more, `fork` handles errors in the first callback, so it's impossible to have an `Uncaught Promise Rejection`.
 
