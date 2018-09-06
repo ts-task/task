@@ -1,8 +1,8 @@
 import { IMapFn, Task } from '../task/task';
-import { UncaughtError } from '../task/uncaught-error';
+import { UnknownError } from '../task/unknown-error';
 
 export function map<T1, T2> (fn: IMapFn<T1, T2>) {
-    return function <E>  (input: Task<T1, E>): Task<T2, E | UncaughtError> {
+    return function <E>  (input: Task<T1, E>): Task<T2, E | UnknownError> {
         return new Task((outerResolve, outerReject) => {
             input.fork(
                 outerReject,
@@ -11,7 +11,7 @@ export function map<T1, T2> (fn: IMapFn<T1, T2>) {
                         const result = fn(value);
                         outerResolve(result);
                     } catch (error) {
-                        outerReject(new UncaughtError(error));
+                        outerReject(new UnknownError(error));
                     }
                 }
             );

@@ -1,4 +1,4 @@
-import { UncaughtError } from './uncaught-error';
+import { UnknownError } from './unknown-error';
 
 export type IMapFn <A, B> = (a: A) => B;
 export type ITaskChainFn<A, B, E> = (value: A) => Task<B, E>;

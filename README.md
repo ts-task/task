@@ -70,7 +70,7 @@ We know `value` is of the expected type `T` but we don't know **any**thing about
 Thats a boomer because we make all this trouble with static typings to have more confidence on how we program and we are left wide open when things go south.
 
 
-So we can't forbid a function from throwing but we can wrap exceptions inside an `UncaughtError` object, and with that decision alone we can type `Task<T, E>` and let TypeScript help us infer and manipulate errors 🎉.
+So we can't forbid a function from throwing but we can wrap exceptions inside an `UnknownError` object, and with that decision alone we can type `Task<T, E>` and let TypeScript help us infer and manipulate errors 🎉.
 
 For example
 
@@ -79,7 +79,7 @@ const task1 = Task.resolve(1);
 // task1 is of type Task<number, never>, which makes sense as there is no way resolve can fail
 
 const task2 = task1.map(n => '' + n)
-// task2 is of type Task<string, UncaughtError>, because we have converted the success value
+// task2 is of type Task<string, UnknownError>, because we have converted the success value
 // and we don't know if the inner function throws an error or not
 ```
 
@@ -100,9 +100,9 @@ const user = getUser(100)
       err => Task.resolve(new Guest())
     )
   )
-// user will have type Task<User | Guest, DbError | UncaughtError> because caseError only handles
+// user will have type Task<User | Guest, DbError | UnknownError> because caseError only handles
 // the UserNotFound error (removing it from the errors) and resolves it to a new type of answer (Guest)
-// and theres always the possibility one of those functions throws, so we have to take UncaughtError
+// and theres always the possibility one of those functions throws, so we have to take UnknownError
 // in account
 ```
 
@@ -150,8 +150,6 @@ const task = Task.resolve(1).pipe(
 
 which is not that bad. All that is required is that the functions passed pipe to have the following signature
 `Task<T1, E1> => Task<T2, E2>`
-
-We have a list of experimental operators in `src/operators/experimental.ts`. Use them with discresion as they might change without notice. All other operators will follow the semantic release convension.
 
 ### Specific semantics
 

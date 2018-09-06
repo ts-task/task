@@ -8,9 +8,9 @@ const p1 = t1.pipe(
     map(x => '' + x)
 );
 
-p1; // $ExpectType Task<string, UncaughtError>
+p1; // $ExpectType Task<string, UnknownError>
 
 const p2 = t1.pipe(
     chain(_ => Task.reject('buu'))
 );
-p2; // $ExpectType Task<never, string | UncaughtError>
+p2; // $ExpectType Task<never, string | UnknownError>

@@ -1,7 +1,7 @@
 import { assertFork, jestAssertNever } from '../../test/jest-helper';
 import { map } from '../operators';
 import { Task } from '../task';
-import { UncaughtError } from '../task/uncaught-error';
+import { UnknownError } from '../task/unknown-error';
 
 describe('Task', () => {
     describe('map', () => {
@@ -44,7 +44,7 @@ describe('Task', () => {
 
             // THEN: the error handler should be called
             result.fork(
-                assertFork(cb, x => expect(x instanceof UncaughtError).toBe(true)),
+                assertFork(cb, x => expect(x instanceof UnknownError).toBe(true)),
                 jestAssertNever(cb)
             );
         });

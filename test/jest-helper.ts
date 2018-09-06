@@ -1,8 +1,8 @@
-import { UncaughtError } from '../src/task';
+import { UnknownError } from '../src/task';
 
 export const jestAssertNever =
     (cb: jest.DoneCallback) =>
-        (obj: never | UncaughtError) =>
+        (obj: never | UnknownError) =>
             cb('this should never happen', obj)
 ;
 

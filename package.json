@@ -25,6 +25,7 @@
   },
   "scripts": {
     "lint": "tslint -t codeFrame 'src/**/*.ts' 'test/**/*.ts'",
+    "prebuild": "rm -Rf dist/docs",
     "build": "tsls build --libraryName=index && typedoc --out dist/docs --target es6 --theme minimal src",
     "start": "tsc -w & rollup -c node_modules/tsls/default-config/rollup.config.ts -w",
     "test": "jest",

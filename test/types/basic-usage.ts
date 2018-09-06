@@ -1,4 +1,4 @@
-import { Task, UncaughtError } from '@ts-task/task';
+import { Task, UnknownError } from '@ts-task/task';
 // Task is parameterized in success (T) and error (E)
 
 // When you create one using Task.resolve or Task.reject TypeScript
@@ -27,11 +27,11 @@ r2; // $ExpectType Task<number, string>
 // we provide throws or not because at this moment TypeScript
 // doesn't have typed exceptions.
 // That's why we decided to catch all functions and return an
-// UncaughtError if a function throws
+// UnknownError if a function throws
 const t1 = Task
     .resolve(9)
     .map(x => x + 1);
-t1; // $ExpectType Task<number, UncaughtError>
+t1; // $ExpectType Task<number, UnknownError>
 
 // If you want to add a specific error type, you can return a
 // rejected task in the chain operator
@@ -43,7 +43,7 @@ const t2 = Task
         ? Task.reject('I dont like pair numbers')
         : Task.resolve(x)
     );
-t2; // $ExpectType Task<number, string | UncaughtError>
+t2; // $ExpectType Task<number, string | UnknownError>
 
 // You may want to use something more manageable than a string,
 // that gives some context to the error and it's easier to distinguish
@@ -51,14 +51,14 @@ t2; // $ExpectType Task<number, string | UncaughtError>
 // You can catch specific errors.
 // Notice that the error goes away from the types
 const t3 = Task
-    .resolve<number, Error | string | UncaughtError>(9)
+    .resolve<number, Error | string | UnknownError>(9)
     .catch(err =>
         // Only handle string errors
         typeof err === 'string'
         ? Task.resolve(-1)
         : Task.reject(err)
 );
-t3; // $ExpectType Task<number, UncaughtError | Error>
+t3; // $ExpectType Task<number, UnknownError | Error>
 
 // Task forces you to check for errors, so when you fork the
 // first callback is the error and the second callback is the success.

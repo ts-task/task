@@ -1,4 +1,4 @@
-import { UncaughtError } from '.';
+import { UnknownError } from '.';
 import { catchError, chain, map } from '../operators';
 import { IMapFn, ITaskChainFn, Task } from './task';
 
@@ -7,9 +7,9 @@ import { IMapFn, ITaskChainFn, Task } from './task';
 declare module './task' {
     // tslint:disable-next-line:interface-name
     interface Task <T, E> {
-        map<TResult> (fn: IMapFn<T, TResult>): Task<TResult, E | UncaughtError>;
-        chain<TResult, EResult> (fn: ITaskChainFn<T, TResult, EResult>): Task < TResult, E | EResult | UncaughtError >;
-        catch <TResult, EResult> (fn: ITaskChainFn<E, TResult, EResult>): Task<T | TResult, EResult | UncaughtError>;
+        map<TResult> (fn: IMapFn<T, TResult>): Task<TResult, E | UnknownError>;
+        chain<TResult, EResult> (fn: ITaskChainFn<T, TResult, EResult>): Task < TResult, E | EResult | UnknownError >;
+        catch <TResult, EResult> (fn: ITaskChainFn<E, TResult, EResult>): Task<T | TResult, EResult | UnknownError>;
     }
 }
 

@@ -1,7 +1,7 @@
 import { assertFork, jestAssertNever, jestAssertUntypedNeverCalled } from '../../test/jest-helper';
 import { catchError, chain, map } from '../operators';
 import { Task } from './index';
-import { UncaughtError } from './uncaught-error';
+import { UnknownError } from './unknown-error';
 
 describe('Task', () => {
     describe('pipe', () => {
@@ -108,7 +108,7 @@ describe('Task', () => {
 
              // THEN: the error function should be called with the new error
              result.fork(
-                assertFork(cb, x => {expect(x).toBeInstanceOf(UncaughtError); }),
+                assertFork(cb, x => {expect(x).toBeInstanceOf(UnknownError); }),
                 jestAssertUntypedNeverCalled(cb)
             );
         });

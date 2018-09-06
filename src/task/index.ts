@@ -1,5 +1,5 @@
 export * from './task';
-export * from './uncaught-error';
+export * from './unknown-error';
 
 import './task-all';
 import './task-from-promise';
