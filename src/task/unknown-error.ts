@@ -1,7 +1,31 @@
 export class UnknownError extends Error {
     errorType = 'UnknownError' as 'UnknownError';
 
-    constructor (private error: any) {
-        super('UnknownError: ' + error.toString());
+    constructor (public originalError: any) {
+        super(`UnknownError (${getErrorMessage(originalError)})`);
+
+        Object.defineProperty(this, 'originalError', {
+            enumerable: false,
+        });
+        Object.defineProperty(this, 'errorType', {
+            enumerable: false,
+        });
+
+        if (isErrorInstance(originalError)) {
+            const stack = this.stack || `UnknownError`;
+            this.stack = stack + '\n--------------\n' + originalError.stack;
+        }
     }
+}
+
+function getErrorMessage (error: any): string {
+    if (isErrorInstance(error)) {
+        return error.message;
+    } else {
+        return error.toString();
+    }
+}
+
+function isErrorInstance (error: any): error is Error {
+    return error instanceof Error;
 }
