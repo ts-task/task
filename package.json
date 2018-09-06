@@ -1,6 +1,6 @@
 {
   "name": "@ts-task/task",
-  "version": "0.4.1",
+  "version": "1.0.0",
   "description": "Promise replacement made with TypeScript more suitable for functional programming and error handling",
   "keywords": [
     "async",
