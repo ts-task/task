@@ -115,5 +115,21 @@ describe('Task', () => {
                 jestAssertUntypedNeverCalled(cb)
             );
         });
+
+        it('should resolve to an empty array if it\'s called with an empty array', cb => {
+            // GIVEN: an empty array
+            const arr: Task<number, never>[] = [];
+
+            // WHEN: calling `Task.all` with that array
+            const tAll = Task.all(arr);
+
+            // THEN: the resulted Task is resolved with an empty array.
+            tAll.fork(
+                jestAssertNever(cb),
+                assertFork(cb, result => {
+                    expect(result).toEqual([]);
+                })
+            );
+        });
     });
 });
