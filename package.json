@@ -1,6 +1,6 @@
 {
   "name": "@ts-task/task",
-  "version": "1.0.0",
+  "version": "0.0.0-development",
   "description": "Promise replacement made with TypeScript more suitable for functional programming and error handling",
   "keywords": [
     "async",
@@ -35,7 +35,7 @@
     "deploy-docs": "ts-node tools/gh-pages-publish",
     "report-coverage": "cat ./coverage/lcov.info | coveralls",
     "commit": "git-cz",
-    "semantic-release": "semantic-release pre && npm publish && semantic-release post",
+    "semantic-release": "semantic-release",
     "semantic-release-prepare": "ts-node tools/semantic-release-prepare",
     "precommit": "lint-staged",
     "contributors-add": "all-contributors add",
@@ -98,7 +98,7 @@
     "prompt": "^1.0.0",
     "replace-in-file": "^3.0.0-beta.2",
     "rimraf": "^2.6.1",
-    "semantic-release": "^8.2.0",
+    "semantic-release": "^15.9.16",
     "ts-jest": "^21.0.0",
     "ts-node": "^3.0.6",
     "tslint": "^5.4.3",
