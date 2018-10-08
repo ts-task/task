@@ -4,7 +4,7 @@ import { Task, UnknownError } from '@ts-task/task';
 // When you create one using Task.resolve or Task.reject TypeScript
 // will infer the type from the passed argument.
 
-Task.resolve(9);    // $ExpectType Task<number, never>
+Task.resolve(8);    // $ExpectType Task<number, never>
 Task.reject('Buu'); // $ExpectType Task<never, string>
 
 // by default Task.resolve can't fail and Task.reject can't provide
