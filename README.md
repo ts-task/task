@@ -1,3 +1,8 @@
+[![Npm version](https://img.shields.io/npm/v/@ts-task/task.svg)](https://www.npmjs.com/package/@ts-task/task)
+[![Build Status](https://travis-ci.com/ts-task/task.svg?branch=master)](https://travis-ci.com/ts-task/task)
+[![Coverage Status](https://coveralls.io/repos/github/ts-task/task/badge.svg?branch=master)](https://coveralls.io/github/ts-task/task?branch=master)
+![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/@ts-task/task.svg)
+
 # Task
 
 It's Like a Promise with typed errors and other improvements that leads to more robust code.
