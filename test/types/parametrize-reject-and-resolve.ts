@@ -8,9 +8,8 @@ import { Task } from '@ts-task/task';
 function foo(condition: boolean) {
     if (condition) {
         return Task.resolve(9);
-    } else {
-        return Task.reject('buu');
     }
+    return Task.reject('buu');
 }
 
 // This get's interpreted as
@@ -41,9 +40,8 @@ Task.reject<string, number>('buu'); // $ExpectType Task<number, string>
 function foo2(condition: boolean) {
     if (condition) {
         return Task.resolve<number, string>(9);
-    } else {
-        return Task.reject<string, number>('buu');
     }
+    return Task.reject<string, number>('buu');
 }
 // And have the type as expected
 foo2; // $ExpectType (condition: boolean) => Task<number, string>

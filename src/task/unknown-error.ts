@@ -12,8 +12,7 @@ export class UnknownError extends Error {
         });
 
         if (isErrorInstance(originalError)) {
-            const stack = this.stack || `UnknownError`;
-            this.stack = stack + '\n--------------\n' + originalError.stack;
+            this.stack = this.stack + '\n--------------\n' + originalError.stack;
         }
     }
 }
