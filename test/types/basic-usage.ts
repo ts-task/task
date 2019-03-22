@@ -1,5 +1,10 @@
 import { Task, UnknownError } from '@ts-task/task';
-// Task is parameterized in success (T) and error (E)
+// This file serves two purposes, for one part it documents how to
+// use Task and some desing decisions, and for the other it works
+// as a type test. By using dtslint we can assert that the types
+// infered by the compiler are what we describe in the comments.
+
+// Tasks are parameterized in success (T) and error (E)
 
 // When you create one using Task.resolve or Task.reject TypeScript
 // will infer the type from the passed argument.
@@ -17,7 +22,8 @@ const r1 = new Task((resolve, reject) => {
 });
 r1; // $ExpectType Task<{}, {}>
 
-// So if you need to do it, make sure to pass the types manually
+// So if you are going to create a task using new,
+// make sure to pass the types manually
 const r2 = new Task<number, string>((resolve, reject) => {
     resolve(1);
 });
