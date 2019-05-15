@@ -2,6 +2,8 @@
 [![Build Status](https://travis-ci.com/ts-task/task.svg?branch=master)](https://travis-ci.com/ts-task/task)
 [![Coverage Status](https://coveralls.io/repos/github/ts-task/task/badge.svg?branch=master)](https://coveralls.io/github/ts-task/task?branch=master)
 ![npm bundle size (minified)](https://img.shields.io/bundlephobia/min/@ts-task/task.svg)
+![Created in acamica labs](https://img.shields.io/badge/created%20in-AcamicaLabs-blue.svg)
+
 
 # Task
 
