@@ -48,5 +48,14 @@ export class Task <T, E> {
             errorFn
         );
     }
+
+    then <B> (successFn: (value: T) => B, errorFn: (error: any) => any): Promise<B> {
+        return new Promise((resolve, reject) => {
+            this.resolver(resolve, reject);
+        }).then(
+            (x: any) => successFn(x),
+            errorFn
+        );
+    }
 }
 

@@ -65,4 +65,68 @@ describe('Task', () => {
             );
         });
     });
+    describe('then', () => {
+        // TODO: copy pasted from fork, but I probably should use
+        // spies instead of relying on `cb`
+        it('should be lazy', cb => {
+            // GIVEN: a manually created task
+            const task = new Task(resolve => {
+                // This should be called
+                expect(true).toBe(true);
+                cb();
+            });
+
+            // WHEN: we fork
+            // THEN: the content of the task is called
+            task.then(x => x, x => x);
+        });
+
+        it('Should call success handler on success', cb => {
+            // GIVEN: A resolved task
+            const task = Task.resolve(0);
+
+            // WHEN: we fork using then
+            // THEN: should call its success function with the resolved value
+            task.then(
+                assertFork(cb, x => expect(x).toBe(0)),
+                jestAssertNever(cb)
+            );
+        });
+
+        it('Should call error handler on rejection', cb => {
+            // GIVEN: A rejected task
+            const task = Task.reject('buu');
+
+            // WHEN: we fork using then
+            // THEN: should call the error handler with the error when it fails
+            task.then(
+                jestAssertNever(cb),
+                assertFork(cb, x => expect(x).toBe('buu'))
+            );
+        });
+
+        it('Should be awaitable', async () => {
+            // GIVEN: A resolved task
+            const task = Task.resolve(0);
+
+            // WHEN: we await on it
+            const val = await task;
+
+            // THEN: It shoud yield the value
+            expect(val).toEqual(0);
+        });
+
+        it('Should be asynchronous', async () => {
+            // GIVEN: A task that resolves in the future
+            const task = new Task<string, never>(resolve =>
+                setTimeout(_ => resolve('wii'), 10)
+            );
+
+            // WHEN: we await on it
+            const val = await task;
+
+            // THEN: it should yield the value in 10ms
+            expect(val).toEqual('wii');
+        });
+    });
 });
